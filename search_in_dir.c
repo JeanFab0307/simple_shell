@@ -4,7 +4,7 @@
 #include "main.h"
 #include <string.h>
 
-char **parse_path(char ** environ);
+char **parse_path(char **environ);
 /**
  * search_in_dir - search for an executable in the PATH directories
  * @command: the executable to search for
@@ -63,7 +63,7 @@ char *search_in_dir(char *command, char **env)
 
 /**
  * parse_path - break the path into its directories
- * @env: the environement of the program
+ * @environ: the environement of the program
  *
  * Return: An array of string of the directories in the PATH
  */
