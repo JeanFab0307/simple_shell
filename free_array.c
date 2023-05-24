@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "main.h"
-#include <stdio.h>
+
 /**
  * free_arr - free a 1 Dimensional array
  * @str: the array to free
