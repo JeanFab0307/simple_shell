@@ -17,10 +17,10 @@ int main(void)
         // parsing continues....
         char *token = strtok(inputString, " ");
         char *parsed[5]; // an array of strings to store a command input.
-        // I gave the array size 5 if there is a case we could get morethan 
+        // I gave the array size 5 if there is a case we could get morethan
         // 5 strings it could be edited!
 
-        int index = 0; 
+        int index = 0;
         while (token != NULL)
         {
             if (index == 0)

@@ -1,14 +1,29 @@
+/**
+ * File: my_strtok
+ * Authors: Abenezer Kifle & Fabrice RANDRIATSIMIVONY
+ *
+ */
+
 #include <stdio.h>
+
+/**
+ * my_strtok - returns a pointer to a newly allocated space in memory
+ *            containing a copy of the tokens from a given string input.
+ *
+ * @inputString: an input long string to be split into words.
+ *
+ *
+ */
 
 unsigned int is_delim(char c, char *delim)
 {
     while (*delim != '\0')
     {
         if (c == *delim)
-            return 1;
+            return (1);
         delim++;
     }
-    return 0;
+    return (0);
 }
 
 char *my_strtok(char *inputString, char *delim)
@@ -46,29 +61,30 @@ char *my_strtok(char *inputString, char *delim)
             /*end of the input string and
             next exec will return NULL*/
             backup_string = inputString;
-            return ret;
+            return (ret);
         }
         if (is_delim(*inputString, delim))
         {
             *inputString = '\0';
             backup_string = inputString + 1;
-            return ret;
+            return (ret);
         }
         inputString++;
     }
 }
-int main()
-{
-    // an input string to be split into words
-    char inputString[] = "Any Sentence Could be Split into Words";
-    // delimiter
-    char *delim = "; ";
-    // calling own version of strtok function
-    char *token = my_strtok(inputString, delim);
-    while (token)
-    {
-        printf("%s\n", token);
-        token = my_strtok(NULL, delim);
-    }
-    return 0;
-}
+
+// int main()
+// {
+//     // an input string to be split into words
+//     char inputString[] = "Any Sentence Could be Split into Words";
+//     // delimiter
+//     char *delim = "; ";
+//     // calling own version of strtok function
+//     char *token = my_strtok(inputString, delim);
+//     while (token)
+//     {
+//         printf("%s\n", token);
+//         token = my_strtok(NULL, delim);
+//     }
+//     return 0;
+// }
