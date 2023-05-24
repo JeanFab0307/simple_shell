@@ -9,5 +9,6 @@
 
 char *my_strtok(char *inputString, char *delim);
 size_t my_getline(char *buf, FILE *stream, size_t size);
+int print(char *str, ...);
 
 #endif
