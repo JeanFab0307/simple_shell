@@ -15,31 +15,22 @@ char *getinput(void)
 	char *input = NULL;
 	size_t len = 0;
 	ssize_t size = 0;
-	char *buff = "($) ";
+	char *buff = "($) ", *pipe;
 	int len_buff;
 
-	len_buff = _strlen(buff);
-	write(STDOUT_FILENO, buff, len_buff);
+	pipe = malloc(1);
+	if (!write(STDIN_FILENO, pipe, 1))
+	{
+		len_buff = _strlen(buff);
+		write(STDOUT_FILENO, buff, len_buff);
+		free_arr(pipe);
+	}
 	size = getline(&input, &len, stdin);
 	if (size == -1)
 	{
 		free_arr(input);
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
-	signal(SIGTSTP, &handle);
 	return (input);
 }
 
-/**
- * handle - handle an action on a signal stop
- * @sig: the signal
- *
- * Return: nothing
- */
-void handle(int sig)
-{
-	if (sig == SIGTSTP)
-	{
-		exit(EXIT_SUCCESS);
-	}
-}
