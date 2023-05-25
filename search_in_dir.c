@@ -58,7 +58,8 @@ char *search_in_dir(char *command, char **env)
 		}
 		i++;
 	}
-	free_2D(pathdir), return (NULL);
+	free_2D(pathdir);
+	return (NULL);
 }
 
 /**
