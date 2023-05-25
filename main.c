@@ -1,8 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <signal.h>
 #include "main.h"
 
+void handle(int sig);
 /**
  * main - entry point in the simple shell
  * @ac: the number of argument passed in the prompt
@@ -13,7 +15,7 @@
  * Or 1 on Failure
  */
 int main(int ac __attribute__((unused)),
-	 char **av __attribute__((unused)), char **env)
+	 char **av, char **env)
 {
 	char **argv;
 	char *input, *buffer;
@@ -22,12 +24,12 @@ int main(int ac __attribute__((unused)),
 	while (1)
 	{
 		input = getinput();
-		if (input[0] == '\n')
+		argv = strparse(input, " ");
+		if (!argv)
 		{
 			free_arr(input);
 			continue;
 		}
-		argv = strparse(input, " ");
 		buffer = search_path(argv[0], env);
 		if (!buffer)
 		{
@@ -43,6 +45,21 @@ int main(int ac __attribute__((unused)),
 		free_arr(input);
 		free_2D(argv);
 		i++;
+		signal(SIGTSTP, &handle);
 	}
 	exit(EXIT_SUCCESS);
+}
+
+/**
+ * handle - handle an action on a signal stop
+ * @sig: the signal
+ *
+ * Return: nothing
+ */
+void handle(int sig)
+{
+        if (sig == SIGTSTP)
+        {
+                exit(EXIT_SUCCESS);
+        }
 }
