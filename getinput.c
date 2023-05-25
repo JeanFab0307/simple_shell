@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <signal.h>
 #include "main.h"
 
+void handle(int sig);
 /**
  * getinput - get the input from the prompt
  *
@@ -24,5 +26,20 @@ char *getinput(void)
 		free_arr(input);
 		exit(EXIT_FAILURE);
 	}
+	signal(SIGTSTP, &handle);
 	return (input);
+}
+
+/**
+ * handle - handle an action on a signal stop
+ * @sig: the signal
+ *
+ * Return: nothing
+ */
+void handle(int sig)
+{
+	if (sig == SIGTSTP)
+	{
+		exit(EXIT_SUCCESS);
+	}
 }
