@@ -17,11 +17,12 @@ char *search_in_dir(char *command, char **env)
 {
 	DIR *path;
 	struct dirent *file;
-	char *buffer;
+	char *buffer, **pathdir;
 	int i = 0, j;
-	char **pathdir = NULL;
 
 	pathdir = parse_path(env);
+	if (!pathdir)
+		return (NULL);
 	while (pathdir[i])
 	{
 		path = opendir(pathdir[i]);
@@ -57,8 +58,7 @@ char *search_in_dir(char *command, char **env)
 		}
 		i++;
 	}
-	free_2D(pathdir);
-	return (NULL);
+	free_2D(pathdir), return (NULL);
 }
 
 /**
@@ -73,7 +73,7 @@ char **parse_path(char **environ)
 	char **buff2 = NULL;
 	int i = 0, j;
 
-	PATH = "PATH=";
+	PATH = "PATH";
 	while (environ[i])
 	{
 		j = 0;
@@ -90,6 +90,11 @@ char **parse_path(char **environ)
 	}
 	buff2 = strparse(buffer, "=");
 	free_arr(buffer);
+	if (!buff2[1])
+	{
+		free_2D(buff2);
+		return (NULL);
+	}
 	buffer = _strdup(buff2[1]);
 	free_2D(buff2);
 	buff2 = strparse(buffer, ":");
