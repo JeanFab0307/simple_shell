@@ -13,7 +13,7 @@ char *getinput(void)
 	char *input = NULL;
 	size_t len = 0;
 	ssize_t size = 0;
-	char *buff = "$ ";
+	char *buff = "($) ";
 	int len_buff;
 
 	len_buff = _strlen(buff);
