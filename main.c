@@ -17,7 +17,7 @@ int main(int ac __attribute__((unused)),
 {
 	char **argv;
 	char *input, *buffer;
-	int i = 0;
+	int i = 1;
 
 	while (1)
 	{
@@ -31,7 +31,8 @@ int main(int ac __attribute__((unused)),
 		buffer = search_path(argv[0], env);
 		if (!buffer)
 		{
-			perror("Error: ");
+			fprintf(stderr, "%s: %d: %s: not found\n",
+				av[0], i, argv[0]);
 		}
 		else
 		{
