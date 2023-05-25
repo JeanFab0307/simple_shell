@@ -15,15 +15,13 @@ char *getinput(void)
 	char *input = NULL;
 	size_t len = 0;
 	ssize_t size = 0;
-	char *buff = "($) ", *pipe;
+	char *buff = "($) ";
 	int len_buff;
 
-	pipe = malloc(1);
-	if (!write(STDIN_FILENO, pipe, 1))
+	if (isatty(STDIN_FILENO))
 	{
 		len_buff = _strlen(buff);
 		write(STDOUT_FILENO, buff, len_buff);
-		free_arr(pipe);
 	}
 	size = getline(&input, &len, stdin);
 	if (size == -1)
