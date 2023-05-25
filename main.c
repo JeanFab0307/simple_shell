@@ -38,7 +38,8 @@ int main(int ac __attribute__((unused)),
 		{
 			execute(buffer, argv, env);
 		}
-		free_arr(buffer);
+		if (buffer != argv[0])
+			free_arr(buffer);
 		free_arr(input);
 		free_2D(argv);
 		i++;
