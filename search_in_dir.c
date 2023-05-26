@@ -4,23 +4,22 @@
 #include "main.h"
 #include <string.h>
 
-char **parse_path(char **environ);
+char **parse_path(void);
 /**
  * search_in_dir - search for an executable in the PATH directories
  * @command: the executable to search for
- * @env: the environement of the program
  *
  * Return: the complete pathname of the executable
  * Or NULL is not found
  */
-char *search_in_dir(char *command, char **env)
+char *search_in_dir(char *command)
 {
 	DIR *path;
 	struct dirent *file;
 	char *buffer, **pathdir;
 	int i = 0, j;
 
-	pathdir = parse_path(env);
+	pathdir = parse_path();
 	if (!pathdir)
 		return (NULL);
 	while (pathdir[i])
@@ -64,11 +63,10 @@ char *search_in_dir(char *command, char **env)
 
 /**
  * parse_path - break the path into its directories
- * @environ: the environement of the program
  *
  * Return: An array of string of the directories in the PATH
  */
-char **parse_path(char **environ)
+char **parse_path(void)
 {
 	char *PATH, *buffer = NULL;
 	char **buff2 = NULL;

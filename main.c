@@ -9,13 +9,11 @@ void handle(int sig);
  * main - entry point in the simple shell
  * @ac: the number of argument passed in the prompt
  * @av: an array of string containing the arguments given in the prompt
- * @env: an array of string of the environement of the program
  *
  * Return: 0 on success
  * Or 1 on Failure
  */
-int main(int ac __attribute__((unused)),
-	 char **av, char **env)
+int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
 	char **argv;
 	char *input, *buffer;
@@ -30,7 +28,7 @@ int main(int ac __attribute__((unused)),
 			free_arr(input);
 			continue;
 		}
-		buffer = search_path(argv[0], env);
+		buffer = search_path(argv[0]);
 		if (!buffer)
 		{
 			fprintf(stderr, "%s: %d: %s: not found\n",
@@ -38,7 +36,7 @@ int main(int ac __attribute__((unused)),
 		}
 		else
 		{
-			execute(buffer, argv, env);
+			execute(buffer, argv);
 		}
 		if (buffer != argv[0])
 			free_arr(buffer);
@@ -58,8 +56,8 @@ int main(int ac __attribute__((unused)),
  */
 void handle(int sig)
 {
-        if (sig == SIGTSTP)
-        {
-                exit(EXIT_SUCCESS);
-        }
+	if (sig == SIGTSTP)
+	{
+		exit(EXIT_SUCCESS);
+	}
 }
