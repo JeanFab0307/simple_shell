@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include "main.h"
-#define EXIT_SHELL "exit -shell"
 
 /**
  * search_builtin - search if the command entered is a buitin command
@@ -8,21 +7,24 @@
  *
  * Return: Nothing
  */
-void search_builtin(char **argv)
+int search_builtin(char **argv)
 {
-        int i = 0;
-        builtin_t command[] = {
-            {"exit", exit_shell},
-            {NULL, NULL}};
+	int i = 0, res = 0;
+	builtin_t command[] = {
+		{"exit", exit_shell},
+		{NULL, NULL}
+	};
 
-        while (command[i])
-        {
-                if (!strcmp(argv[0], command[i].name))
-                {
-                        command[i].action(argv);
-                        free_2D(argv[0]);
-                        break;
-                }
-                i++;
-        }
+	while (command[i].name)
+	{
+		if (!_strcmp(argv[0], command[i].name))
+		{
+			res = command[i].action(argv);
+			if (res == -1)
+				return (-1);
+			break;
+		}
+		i++;
+	}
+	return (res);
 }

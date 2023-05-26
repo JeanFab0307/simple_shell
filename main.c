@@ -17,7 +17,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
 	char **argv;
 	char *input, *buffer;
-	int i = 1;
+	int i = 1, res = 0;
 
 	while (1)
 	{
@@ -28,24 +28,36 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			free_arr(input);
 			continue;
 		}
-		buffer = search_path(argv[0]);
-		if (!buffer)
+		free_arr(input);
+		res = search_builtin(argv);
+		if (res == 1)
 		{
-			fprintf(stderr, "%s: %d: %s: not found\n",
-				av[0], i, argv[0]);
+			_fprintf(STDERR_FILENO, "ssdsd",
+			av[0], ": ", i, ": exit: Illegal value", argv[0]);
+		}
+		else if (res == -1)
+		{
+			continue;
 		}
 		else
 		{
-			execute(buffer, argv);
+			buffer = search_path(argv[0]);
+			if (!buffer)
+			{
+				_fprintf(STDERR_FILENO, "ssisss",
+				av[0], ": " i, ": " argv[0], "not found");
+			}
+			else
+			{
+				execute(buffer, argv);
+			}
+			if (buffer != argv[0])
+				free_arr(buffer);
+			free_2D(argv);
 		}
-		if (buffer != argv[0])
-			free_arr(buffer);
-		free_arr(input);
-		free_2D(argv);
 		i++;
 		signal(SIGTSTP, &handle);
 	}
-	exit(EXIT_SUCCESS);
 }
 
 /**
