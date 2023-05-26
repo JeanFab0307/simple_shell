@@ -5,8 +5,8 @@ extern char **environ;
 
 typedef struct builtin
 {
-        char *name;
-        void (*action)(char**);
+    char *name;
+    void (*action)(char **);
 } builtin_t;
 
 void free_arr(char *str);
@@ -22,5 +22,6 @@ int _strlen(char *str);
 char *str_concat(char *s1, char *s2);
 void execute(char *command, char **argv);
 int _atoi(char *num);
+void exit_shell(char **argv);
 
 #endif
