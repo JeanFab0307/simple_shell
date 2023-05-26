@@ -52,14 +52,23 @@ int print_number(int n, int fd)
 		digit_count++;
 		tmp /= 10;
 	}
+	if (n < 0)
+		digit_count++;
 	num = malloc(sizeof(char) * digit_count + 1);
 
 	i = 0;
-	while (i < digit_count)
+	tmp = n;
+	while (n)
 	{
-		num[digit_count - 1 - i] = n + '0';
+		if (tmp > 0)
+			num[digit_count - 1 - i] = n % 10 + '0';
+		else if (tmp < 0)
+			num[digit_count - 1 - i] = -(n % 10) + '0';
+		n /= 10;
 		i++;
 	}
+	if (tmp < 0)
+		num[0] = '-';
 	num[digit_count] = '\0';
 	tmp = write(fd, num, digit_count);
 	free_arr(num);
@@ -75,7 +84,7 @@ int print_number(int n, int fd)
  */
 int _fprintf(int fd, char *format, ...)
 {
-	int printed = 0, i;
+	int printed = 0, i = 0;
 	va_list arg;
 
 	va_start(arg, format);

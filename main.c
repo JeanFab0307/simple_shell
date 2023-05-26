@@ -13,7 +13,7 @@ void handle(int sig);
  * Return: 0 on success
  * Or 1 on Failure
  */
-int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
+int main(int ac __attribute__((unused)), char **av)
 {
 	char **argv;
 	char *input, *buffer;
@@ -30,13 +30,15 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		}
 		free_arr(input);
 		res = search_builtin(argv);
-		if (res == 1)
+		if (res == -1)
 		{
-			_fprintf(STDERR_FILENO, "ssdsd",
-			av[0], ": ", i, ": exit: Illegal value", argv[0]);
+			_fprintf(STDERR_FILENO, "ssdsss",
+		av[0], ": ", i, ": exit: Illegal number: ", argv[1], "\n");
+			free_2D(argv);
 		}
-		else if (res == -1)
+		else if (res == 1)
 		{
+			i++;
 			continue;
 		}
 		else
@@ -44,8 +46,8 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			buffer = search_path(argv[0]);
 			if (!buffer)
 			{
-				_fprintf(STDERR_FILENO, "ssisss",
-				av[0], ": " i, ": " argv[0], "not found");
+				_fprintf(STDERR_FILENO, "ssdssss",
+			av[0], ": ", i, ": ", argv[0], ": not found", "\n");
 			}
 			else
 			{

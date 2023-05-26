@@ -11,7 +11,7 @@ int search_builtin(char **argv)
 {
 	int i = 0, res = 0;
 	builtin_t command[] = {
-		{"exit", exit_shell},
+		{"exit", exit_shell}, {"env", print_env},
 		{NULL, NULL}
 	};
 
@@ -19,10 +19,7 @@ int search_builtin(char **argv)
 	{
 		if (!_strcmp(argv[0], command[i].name))
 		{
-			res = command[i].action(argv);
-			if (res == -1)
-				return (-1);
-			break;
+			return (command[i].action(argv));
 		}
 		i++;
 	}

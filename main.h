@@ -32,7 +32,7 @@ char *str_concat(char *s1, char *s2);
 int _atoi(char *num);
 int _strcmp(char *s1, char *s2);
 int _fprintf(int fd, char *format, ...);
-
+int print_string(char *str, int fd);
 int exit_shell(char **argv);
-
+int print_env(char **argv);
 #endif

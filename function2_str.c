@@ -47,6 +47,7 @@ int _atoi(char *s)
 		{
 			return (-1);
 		}
+		i++;
 	}
 	return (res);
 }
