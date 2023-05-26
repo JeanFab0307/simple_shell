@@ -11,7 +11,7 @@
  */
 int exit_shell(char **argv)
 {
-	int stat;
+	int stat = 0;
 
 	if (argv[1])
 		stat = _atoi(argv[1]);
